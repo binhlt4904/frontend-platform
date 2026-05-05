@@ -1,77 +1,111 @@
 @use '@angular/material' as mat;
 @use '@sentinel/layout/theming' as vars;
 
+// ─────────────────────────────────────────────
+// FCTF Design Tokens (matches FCTF admin theme)
+// ─────────────────────────────────────────────
+$fctf-orange: #ff6b35;
+$fctf-orange-dark: #e85d2a;
+$fctf-orange-light: #ff884d;
+$fctf-bg-sidebar: #F9F3F1;
+$fctf-active-bg: rgba(247, 207, 190, 0.6);
+$fctf-active-border: #ff6b35;
+$fctf-text-dark: #2c3e50;
+$fctf-text-medium: #495057;
+$fctf-text-light: #6c757d;
+$fctf-border-light: rgba(255, 107, 53, 0.2);
+$fctf-white: #ffffff;
+
 @mixin sentinel-layout-theme($theme) {
-    @if (mat.get-theme-version($theme) == 1) {
+    @if (mat.get-theme-version($theme)==1) {
+
+        // ── Typography scale ──
         & {
-            --sentinel-breadcrumbs-text-color: #ffffff;
+            --sentinel-breadcrumbs-text-color: #{$fctf-white};
             --mat-sidenav-container-shape: 0;
-            --sentinel-hover-state: #{mat.get-theme-color($theme, primary, 95)};
+            --sentinel-hover-state: rgba(255, 107, 53, 0.1);
+
             --sys-display-large-size: 34px;
             --sys-display-large-line-height: 40px;
-            --sys-display-large: 500 var(--sys-display-large-size) /
-        var(--sys-display-large-line-height)
-            #{vars.$sentinel-base-font};
-
+            --sys-display-large: 500 var(--sys-display-large-size) / var(--sys-display-large-line-height) #{vars.$sentinel-base-font};
             --sys-display-medium-size: 24px;
             --sys-display-medium-line-height: 32px;
-            --sys-display-medium: 400 var(--sys-display-medium-size) /
-        var(--sys-display-medium-line-height)
-            #{vars.$sentinel-base-font};
-
+            --sys-display-medium: 400 var(--sys-display-medium-size) / var(--sys-display-medium-line-height) #{vars.$sentinel-base-font};
             --sys-display-small-size: 20px;
             --sys-display-small-line-height: 32px;
-            --sys-display-small: 400 var(--sys-display-small-size) /
-        var(--sys-display-small-line-height)
-            #{vars.$sentinel-base-font};
-
+            --sys-display-small: 400 var(--sys-display-small-size) / var(--sys-display-small-line-height) #{vars.$sentinel-base-font};
             --sys-headline-large-size: 16px;
             --sys-headline-large-line-height: 28px;
-            --sys-headline-large: 400 var(--sys-headline-large-size) /
-        var(--sys-headline-large-line-height)
-            #{vars.$sentinel-base-font};
-
+            --sys-headline-large: 400 var(--sys-headline-large-size) / var(--sys-headline-large-line-height) #{vars.$sentinel-base-font};
             --sys-headline-medium-size: 14px;
             --sys-headline-medium-line-height: 24px;
-            --sys-headline-medium: 400 var(--sys-headline-medium-size) /
-        var(--sys-headline-medium-line-height)
-            #{vars.$sentinel-base-font};
-
+            --sys-headline-medium: 400 var(--sys-headline-medium-size) / var(--sys-headline-medium-line-height) #{vars.$sentinel-base-font};
             --sys-headline-small-size: 13px;
             --sys-headline-small-line-height: 22px;
-            --sys-headline-small: 400 var(--sys-headline-small-size) /
-        var(--sys-headline-small-line-height)
-            #{vars.$sentinel-base-font};
-
+            --sys-headline-small: 400 var(--sys-headline-small-size) / var(--sys-headline-small-line-height) #{vars.$sentinel-base-font};
             --sys-body-large-size: 14px;
             --sys-body-large-line-height: 20px;
             --sys-body-large-tracking: 0;
             --sys-body-large: 400 var(--sys-body-large-size) / var(--sys-body-large-line-height) #{vars.$sentinel-base-font};
         }
+
+        // ── Top toolbar: FCTF orange ──
         .mat-toolbar {
-            --mat-toolbar-container-text-color: #{mat.get-theme-color($theme, primary, 100)};
-            --mat-toolbar-container-background-color: #{mat.get-theme-color($theme, primary)};
-            --mat-icon-button-icon-color: #{mat.get-theme-color($theme, primary, 100)};
-        }
-        .nav-drawer.mat-drawer {
-            background-color: #000000;
-            background-image: linear-gradient(147deg, #03031f 0%, #141f64 250%);
+            --mat-toolbar-container-text-color: #{$fctf-white};
+            --mat-toolbar-container-background-color: #{$fctf-orange};
+            --mat-icon-button-icon-color: #{$fctf-white};
         }
 
+        // ── Sidebar: FCTF pinkish-white background ──
+        .nav-drawer.mat-drawer {
+            background-color: #{$fctf-bg-sidebar};
+            background-image: none;
+            border-right: 1px solid #{$fctf-border-light};
+            box-shadow: 2px 0 8px rgba(255, 107, 53, 0.06);
+        }
+
+        // ── Nav links: dark text, orange active ──
         .nav-drawer {
+
             a,
             button {
-                --mat-button-text-label-text-color: #{mat.get-theme-color($theme, primary, 100)};
-                --mat-button-text-ripple-color: #{mat.get-theme-color($theme, primary, 40)};
+                --mat-button-text-label-text-color: #{$fctf-text-medium};
+                --mat-button-text-ripple-color: rgba(255, 107, 53, 0.15);
+                border-radius: 0 !important;
+                font-family: 'Space Mono', monospace;
+                letter-spacing: 0.5px;
+                transition: background-color 0.2s ease;
+
+                &:hover {
+                    background-color: rgba(255, 107, 53, 0.08) !important;
+                    --mat-button-text-label-text-color: #{$fctf-orange};
+                }
+
+                &.active,
+                &[aria-current="page"],
+                &.sentinel-active {
+                    background-color: #{$fctf-active-bg} !important;
+                    border-left: 3px solid #{$fctf-active-border} !important;
+                    --mat-button-text-label-text-color: #{$fctf-orange} !important;
+                    font-weight: 700;
+                }
             }
 
-            --mat-container-text-color: #{mat.get-theme-color($theme, primary, 100)};
-            --mat-icon-button-icon-color: #{mat.get-theme-color($theme, primary, 100)};
+            --mat-container-text-color: #{$fctf-text-medium};
+            --mat-icon-button-icon-color: #{$fctf-text-light};
         }
 
         sentinel-root-agenda-container .container {
             margin: 8px 0;
-            color: #{mat.get-theme-color($theme, neutral-variant, 95)};
+            color: #{$fctf-text-light};
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        sentinel-root-agenda-container .mat-divider {
+            border-color: #{$fctf-border-light} !important;
         }
 
         sentinel-agenda-element .nested {
@@ -87,24 +121,46 @@
         }
 
         #version {
-            color: #{mat.get-theme-color($theme, primary, 100)};
+            color: #{$fctf-text-light};
+            font-size: 0.75rem;
+            font-family: 'Space Mono', monospace;
         }
-    } @else {
+
+    }
+
+    @else {
+
+        // ── Legacy M2 fallback ──
         .mat-drawer {
-            background-color: #000000;
-            background-image: linear-gradient(147deg, #03031f 0%, #141f64 250%);
+            background-color: #{$fctf-bg-sidebar};
+            background-image: none;
+            border-right: 1px solid #{$fctf-border-light};
 
             a.mat-mdc-button {
-                color: #ffffff;
+                color: #{$fctf-text-medium};
+                border-radius: 0;
+
+                &:hover {
+                    background-color: rgba(255, 107, 53, 0.08);
+                    color: #{$fctf-orange};
+                }
+
+                &.active {
+                    background-color: #{$fctf-active-bg};
+                    border-left: 3px solid #{$fctf-active-border};
+                    color: #{$fctf-orange};
+                    font-weight: 700;
+                }
             }
         }
+
         #version {
-            color: white;
+            color: #{$fctf-text-light};
         }
 
         sentinel-root-agenda-container .container {
             height: 48px;
-            color: #c3c5cb;
+            color: #{$fctf-text-light};
         }
 
         sentinel-nested-agenda-container button.mat-mdc-button {

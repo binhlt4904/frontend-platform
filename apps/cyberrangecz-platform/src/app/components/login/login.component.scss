@@ -24,7 +24,7 @@
 
 #consent-address {
     text-decoration: none;
-    color: rgb(0, 39, 118);
+    color: #ff6b35;
 }
 
 button {
@@ -34,4 +34,29 @@ button {
 
 mat-card {
     padding: 16px;
+}
+
+::ng-deep sentinel-auth-provider-list {
+
+    button,
+    .mat-mdc-button,
+    .mat-mdc-raised-button,
+    .mat-mdc-unelevated-button {
+        background-color: #ff6b35 !important;
+        color: #ffffff !important;
+
+        font-family: 'Space Mono', monospace !important;
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+
+        &:hover {
+            background-color: #e85d2a !important;
+        }
+
+        // Icon color inside button
+        .mat-icon,
+        mat-icon {
+            color: #ffffff !important;
+        }
+    }
 }

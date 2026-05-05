@@ -1,3 +1,6 @@
+/* Space Mono Font (FCTF primary font) */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 @mixin font-face($family, $weight, $style, $path) {
     @font-face {
         font-family: $family;
@@ -9,9 +12,9 @@
 }
 
 @function get-filename($base, $weight, $style) {
-    @return if($weight == 400 and $style == normal, '#{$base}-regular.ttf',
-               if($weight == 400 and $style == italic, '#{$base}-italic.ttf',
-                  if($style == normal, '#{$base}-#{$weight}.ttf', '#{$base}-#{$weight}italic.ttf')));
+    @return if($weight ==400 and $style ==normal, '#{$base}-regular.ttf',
+        if($weight ==400 and $style ==italic, '#{$base}-italic.ttf',
+            if($style ==normal, '#{$base}-#{$weight}.ttf', '#{$base}-#{$weight}italic.ttf')));
 }
 
 /* Inter Font Family */
