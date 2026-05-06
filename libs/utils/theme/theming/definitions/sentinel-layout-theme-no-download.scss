@@ -64,7 +64,7 @@ $fctf-white: #ffffff;
             box-shadow: 2px 0 8px rgba(255, 107, 53, 0.06);
         }
 
-        // ── Nav links: dark text, orange active ──
+        // Active nav item — full orange background + white text
         .nav-drawer {
 
             a,
@@ -95,6 +95,25 @@ $fctf-white: #ffffff;
                     mat-icon {
                         color: #{$fctf-white} !important;
                     }
+                }
+            }
+
+            // Active item via sentinel nested-container (actual runtime class)
+            .nested-container[bis_skin_checked="1"]>button,
+            sentinel-nested-agenda-container .nested-container>button.mdc-button,
+            sentinel-agenda-element .nested-container[bis_skin_checked="1"] button {
+                background-color: #{$fctf-orange} !important;
+                color: #{$fctf-white} !important;
+                font-weight: 700 !important;
+
+                .mdc-button__label,
+                span {
+                    color: #{$fctf-white} !important;
+                }
+
+                .mat-icon,
+                mat-icon {
+                    color: #{$fctf-white} !important;
                 }
             }
 
@@ -153,10 +172,15 @@ $fctf-white: #ffffff;
                 }
 
                 &.active {
-                    background-color: #{$fctf-active-bg};
-                    border-left: 3px solid #{$fctf-active-border};
-                    color: #{$fctf-orange};
+                    background-color: #{$fctf-orange};
+                    border-left: none;
+                    color: #{$fctf-white};
                     font-weight: 700;
+
+                    .mat-icon,
+                    mat-icon {
+                        color: #{$fctf-white} !important;
+                    }
                 }
             }
         }
