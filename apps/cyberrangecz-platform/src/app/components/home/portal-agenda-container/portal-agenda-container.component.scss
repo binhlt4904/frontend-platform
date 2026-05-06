@@ -1,6 +1,9 @@
 h2 {
     font-size: 24px;
     font-weight: bold;
+    color: #ff6b35;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 1px;
 }
 
 .portal-row {
@@ -26,7 +29,7 @@ h2 {
     width: 50%;
 }
 
-.portal-items-container > * {
+.portal-items-container>* {
     flex: 1;
 }
 

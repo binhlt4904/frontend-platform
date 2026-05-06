@@ -1,12 +1,11 @@
 @use "@angular/material" as mat;
 
-
 .simple-button-wrapper {
     border-radius: 0.75rem;
 }
 
 .simple-button-wrapper:hover {
-    box-shadow: 0 0 12px 4px var(--primary-70);
+    box-shadow: 0 0 12px 4px rgba(255, 107, 53, 0.4);
 }
 
 .simple-button {
@@ -17,7 +16,7 @@
 
 .dropdown-button {
     position: relative;
-    background: var(--neutral-98);
+    background: #fff8f5;
     border-radius: 0.75rem;
     border: none;
     @include mat.elevation(2);
@@ -25,13 +24,13 @@
 }
 
 .dropdown-button:hover {
-    background: var(--primary-95);
+    background: #ffe4d6;
     border-radius: 0.75rem 0.75rem 0 0;
 }
 
 mat-icon {
     font-size: 35px !important;
-    color: var(--primary-40);
+    color: #ff6b35;
 }
 
 .mat-icon {
@@ -52,10 +51,12 @@ mat-icon {
     display: flex;
     justify-content: center;
     padding-top: 10px;
+    color: #495057;
+    font-family: 'Space Mono', monospace;
 }
 
 .button-highlight {
-    box-shadow: 0 0 12px 4px var(--primary-70);
+    box-shadow: 0 0 12px 4px rgba(255, 107, 53, 0.4);
 }
 
 .expanded-menu-item-wrapper {
@@ -67,10 +68,10 @@ mat-icon {
     bottom: calc(-100% - 25px);
     left: 0;
     width: 120px;
-    background-color: var(--primary-95);
+    background-color: #ffe4d6;
     overflow: visible;
     z-index: 0;
-    box-shadow: 0 14px 12px 4px var(--primary-70);
+    box-shadow: 0 14px 12px 4px rgba(255, 107, 53, 0.3);
     animation: rollDown 0.1s ease-out;
 }
 
@@ -78,11 +79,11 @@ mat-icon {
     from {
         transform: translateY(-20px);
     }
+
     to {
         transform: translateY(0);
     }
 }
-
 
 .expanded-menu-item {
     flex-wrap: nowrap;
@@ -94,20 +95,22 @@ mat-icon {
     gap: 0.5rem;
     border-radius: 0;
     padding: 0.25rem 0 0.25rem 0.75rem;
-    background-color: var(--primary-95);
+    background-color: #ffe4d6;
     border: none;
-    border-top: solid 1px var(--primary-50);
+    border-top: solid 1px #ff6b35;
     font-weight: 525;
     font-size: 0.875rem;
+    color: #495057;
+    font-family: 'Space Mono', monospace;
     z-index: 5;
 }
 
 .expanded-menu-item:hover {
-    background-color: var(--primary-98);
+    background-color: #fff1eb;
     animation: activateButton 0.1s ease-out;
     scale: 1.05;
     border-radius: 0.5rem;
-    border: solid 1px var(--primary-50);
+    border: solid 1px #ff6b35;
     z-index: 100;
     cursor: pointer;
 }
@@ -117,6 +120,7 @@ mat-icon {
         transform: scale(1);
         border-radius: 0;
     }
+
     to {
         transform: scale(1.05);
         border-radius: 0.5rem;
@@ -127,7 +131,6 @@ mat-icon {
     text-align: center;
 }
 
-
 .dropdown-icon-band {
     pointer-events: none;
     position: absolute;
@@ -137,7 +140,7 @@ mat-icon {
     height: 0.75rem;
     width: 120px;
     border-radius: 0 0 0.75rem 0.75rem;
-    background-color: var(--primary-40);
+    background-color: #ff6b35;
     z-index: 1;
 }
 
@@ -151,11 +154,10 @@ mat-icon {
     width: 2rem;
     height: 0.25rem;
     border-radius: 0.75rem;
-    background-color: var(--neutral-100);
+    background-color: #ffffff;
 }
 
 .arrow-icon {
     font-size: 20px;
-    color: var(--neutral-100);
+    color: #ffffff;
 }
-
