@@ -43,4 +43,4 @@ jobs:
             ssh -i /home/sp26-ojt/kypo-sp26/kypo-sp26/.vagrant/machines/default/libvirt/private_key \
               -o StrictHostKeyChecking=no \
               vagrant@192.168.121.103 \
-              "sudo kubectl set image deployment/angular-frontend angular-frontend=${{ secrets.DOCKERHUB_USERNAME }}/frontend-platform:latest -n crczp && sudo kubectl rollout status deployment/angular-frontend -n crczp"
+              "sudo kubectl set image deployment/angular-frontend angular-frontend=${{ secrets.DOCKERHUB_USERNAME }}/frontend-platform:latest -n crczp && sudo kubectl rollout restart deployment/angular-frontend -n crczp && sudo kubectl rollout status deployment/angular-frontend -n crczp --timeout=300s"
