@@ -40,14 +40,7 @@ jobs:
           username: sp26-ojt
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/sp26-ojt/kypo-sp26
-            REPO_ABS=$(realpath .)
-            docker run -i --rm \
-              -e LIBVIRT_DEFAULT_URI \
-              -v /var/run/libvirt/:/var/run/libvirt/ \
-              -v /home/sp26-ojt/.vagrant.d:/.vagrant.d \
-              -v $REPO_ABS:$REPO_ABS \
-              -w $REPO_ABS \
-              --network host \
-              vagrantlibvirt/vagrant-libvirt:latest \
-              vagrant ssh -- -t "sudo kubectl set image deployment/angular-frontend angular-frontend=${{ secrets.DOCKERHUB_USERNAME }}/frontend-platform:latest -n crczp && sudo kubectl rollout status deployment/angular-frontend -n crczp"
+            ssh -i /home/sp26-ojt/kypo-sp26/kypo-sp26/.vagrant/machines/default/libvirt/private_key \
+              -o StrictHostKeyChecking=no \
+              vagrant@192.168.121.103 \
+              "sudo kubectl set image deployment/angular-frontend angular-frontend=${{ secrets.DOCKERHUB_USERNAME }}/frontend-platform:latest -n crczp && sudo kubectl rollout status deployment/angular-frontend -n crczp"
