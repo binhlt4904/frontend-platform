@@ -98,25 +98,6 @@ $fctf-white: #ffffff;
                 }
             }
 
-            // Active item via sentinel nested-container (actual runtime class)
-            .nested-container[bis_skin_checked="1"]>button,
-            sentinel-nested-agenda-container .nested-container>button.mdc-button,
-            sentinel-agenda-element .nested-container[bis_skin_checked="1"] button {
-                background-color: #{$fctf-orange} !important;
-                color: #{$fctf-white} !important;
-                font-weight: 700 !important;
-
-                .mdc-button__label,
-                span {
-                    color: #{$fctf-white} !important;
-                }
-
-                .mat-icon,
-                mat-icon {
-                    color: #{$fctf-white} !important;
-                }
-            }
-
             --mat-container-text-color: #{$fctf-text-medium};
             --mat-icon-button-icon-color: #{$fctf-text-light};
         }
@@ -171,7 +152,9 @@ $fctf-white: #ffffff;
                     color: #{$fctf-orange};
                 }
 
-                &.active {
+                &.active,
+                &[aria-current="page"],
+                &.sentinel-active {
                     background-color: #{$fctf-orange};
                     border-left: none;
                     color: #{$fctf-white};
