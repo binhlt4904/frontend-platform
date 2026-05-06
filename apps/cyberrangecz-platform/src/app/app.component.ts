@@ -90,77 +90,42 @@ export class AppComponent implements OnInit, AfterViewInit {
 
             const urlLower = currentUrl.toLowerCase().split('?')[0];
 
-            // Map URL segments → nav button label text
-            // Order matters: more specific segments first (longer = higher priority)
-            const segmentToLabel: Array<{ segment: string; label: string; parentLabel?: string }> = [
-                { segment: 'adaptive-definition', label: 'adaptive', parentLabel: 'definition' },
-                { segment: 'linear-definition', label: 'linear', parentLabel: 'definition' },
-                { segment: 'adaptive-instance', label: 'adaptive', parentLabel: 'instance' },
-                { segment: 'linear-instance', label: 'linear', parentLabel: 'instance' },
-                { segment: 'sandbox-definition', label: 'definition', parentLabel: 'sandboxes' },
-                { segment: 'pool', label: 'pool' },
-                { segment: 'images', label: 'images' },
-                { segment: 'microservice', label: 'microservice' },
-                { segment: 'group', label: 'group' },
-                { segment: 'user', label: 'user' },
-                { segment: 'run', label: 'run' },
-                { segment: 'adaptive-definition', label: 'definition' },
-                { segment: 'linear-definition', label: 'definition' },
-                { segment: 'adaptive-instance', label: 'instance' },
-                { segment: 'linear-instance', label: 'instance' },
+            // Map URL segments → labels to activate (can activate multiple: child + parent)
+            const segmentToLabels: Array<{ segment: string; labels: string[] }> = [
+                { segment: 'adaptive-definition', labels: ['adaptive', 'definition'] },
+                { segment: 'linear-definition', labels: ['linear', 'definition'] },
+                { segment: 'adaptive-instance', labels: ['adaptive', 'instance'] },
+                { segment: 'linear-instance', labels: ['linear', 'instance'] },
+                { segment: 'sandbox-definition', labels: ['definition'] },
+                { segment: 'pool', labels: ['pool'] },
+                { segment: 'images', labels: ['images'] },
+                { segment: 'microservice', labels: ['microservice'] },
+                { segment: 'group', labels: ['group'] },
+                { segment: 'user', labels: ['user'] },
+                { segment: 'run', labels: ['run'] },
             ];
 
             // Find best match (longest segment wins)
-            let matchedLabel: string | null = null;
+            let matchedLabels: string[] = [];
             let bestLen = 0;
-            for (const { segment, label } of segmentToLabel) {
+            for (const { segment, labels } of segmentToLabels) {
                 if (urlLower.includes(segment) && segment.length > bestLen) {
-                    matchedLabel = label;
+                    matchedLabels = labels;
                     bestLen = segment.length;
                 }
             }
 
-            if (!matchedLabel) return;
+            if (!matchedLabels.length) return;
 
-            // Find a/button whose visible text matches the label, with optional parent context
-            const buttons = navDrawer.querySelectorAll<HTMLElement>('a.mdc-button, button.mdc-button');
-            let activeBtn: HTMLElement | null = null;
-
-            buttons.forEach((btn) => {
+            // Activate all matched labels
+            const navButtons = navDrawer.querySelectorAll<HTMLElement>('a.mdc-button, button.mdc-button');
+            navButtons.forEach((btn) => {
                 const labelEl = btn.querySelector('.mdc-button__label');
                 const text = labelEl?.textContent?.trim().toLowerCase() ?? '';
-                // Use includes because expand buttons have icon text prefix e.g. "expand_less Definition"
-                if (!text.includes(matchedLabel!)) return;
-
-                // If parentLabel specified, verify the button is inside the right section
-                const match = segmentToLabel.find(s => s.label === matchedLabel && urlLower.includes(s.segment));
-                if (match?.parentLabel) {
-                    // Walk up to find sentinel-root-agenda-container and check its header text
-                    const rootContainer = btn.closest('sentinel-root-agenda-container');
-                    const headerText = rootContainer
-                        ?.querySelector('.container')?.textContent?.trim().toLowerCase() ?? '';
-                    if (!headerText.includes(match.parentLabel)) return;
+                if (matchedLabels.includes(text)) {
+                    btn.classList.add('fctf-active');
                 }
-
-                activeBtn = btn;
             });
-
-            if (!activeBtn) return;
-
-            activeBtn.classList.add('fctf-active');
-
-            // Also highlight parent expand button if this is a nested item
-            const agendaEl = (activeBtn as HTMLElement)
-                .closest('sentinel-nested-agenda-container')
-                ?.closest('sentinel-agenda-element');
-            if (agendaEl) {
-                const parentBtn = agendaEl.querySelector<HTMLElement>(
-                    ':scope > div > button.mdc-button'
-                );
-                if (parentBtn && parentBtn !== activeBtn) {
-                    parentBtn.classList.add('fctf-active');
-                }
-            }
         }, 150);
     }
 
