@@ -83,7 +83,8 @@ $fctf-white: #ffffff;
 
                 &.active,
                 &[aria-current="page"],
-                &.sentinel-active {
+                &.sentinel-active,
+                &.fctf-active {
                     background-color: #{$fctf-orange} !important;
                     border-left: none !important;
                     --mat-button-text-label-text-color: #{$fctf-white} !important;
@@ -154,7 +155,8 @@ $fctf-white: #ffffff;
 
                 &.active,
                 &[aria-current="page"],
-                &.sentinel-active {
+                &.sentinel-active,
+                &.fctf-active {
                     background-color: #{$fctf-orange};
                     border-left: none;
                     color: #{$fctf-white};
