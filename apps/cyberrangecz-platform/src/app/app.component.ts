@@ -79,7 +79,6 @@ export class AppComponent implements OnInit, AfterViewInit {
      * @sentinel/layout does not expose an active class, so we inject it manually.
      */
     private updateActiveNavItem(currentUrl: string): void {
-        // Run after DOM settles
         setTimeout(() => {
             const navDrawer = document.querySelector('.nav-drawer');
             if (!navDrawer) return;
@@ -89,54 +88,61 @@ export class AppComponent implements OnInit, AfterViewInit {
                 el.classList.remove('fctf-active');
             });
 
-            // Find all nav buttons
+            const urlLower = currentUrl.toLowerCase().split('?')[0];
+
+            // Map URL segments → nav button label text (exact match, lowercase)
+            const segmentToLabel: Array<{ segment: string; label: string }> = [
+                { segment: 'adaptive-definition', label: 'adaptive' },
+                { segment: 'linear-definition', label: 'linear' },
+                { segment: 'adaptive-instance', label: 'adaptive' },
+                { segment: 'linear-instance', label: 'linear' },
+                { segment: 'run', label: 'run' },
+                { segment: 'sandbox-definition', label: 'definition' },
+                { segment: 'pool', label: 'pool' },
+                { segment: 'images', label: 'images' },
+                { segment: 'user', label: 'user' },
+                { segment: 'group', label: 'group' },
+                { segment: 'microservice', label: 'microservice' },
+            ];
+
+            // Find best match (longest segment wins)
+            let matchedLabel: string | null = null;
+            let bestLen = 0;
+            for (const { segment, label } of segmentToLabel) {
+                if (urlLower.includes(segment) && segment.length > bestLen) {
+                    matchedLabel = label;
+                    bestLen = segment.length;
+                }
+            }
+
+            if (!matchedLabel) return;
+
+            // Find button whose visible text matches the label
             const buttons = navDrawer.querySelectorAll<HTMLElement>('button.mdc-button');
-            let bestMatch: { el: HTMLElement; length: number } | null = null;
+            let activeBtn: HTMLElement | null = null;
 
             buttons.forEach((btn) => {
-                // Get the tooltip (matTooltip) or label text as route hint
-                const label = btn.querySelector('.mdc-button__label')?.textContent?.trim().toLowerCase() ?? '';
-                const tooltip = btn.getAttribute('ng-reflect-message')?.toLowerCase() ?? '';
-                const hint = tooltip || label;
-
-                // Map label → route segment
-                const routeMap: Record<string, string> = {
-                    'definition': 'definition',
-                    'instance': 'instance',
-                    'run': 'run',
-                    'pool': 'pool',
-                    'images': 'images',
-                    'user': 'user',
-                    'group': 'group',
-                    'microservice': 'microservice',
-                    'adaptive': 'adaptive',
-                    'linear': 'linear',
-                };
-
-                for (const [key, segment] of Object.entries(routeMap)) {
-                    if (hint.includes(key)) {
-                        const urlLower = currentUrl.toLowerCase();
-                        if (urlLower.includes(segment)) {
-                            const matchLength = segment.length;
-                            if (!bestMatch || matchLength > bestMatch.length) {
-                                bestMatch = { el: btn, length: matchLength };
-                            }
-                        }
-                    }
+                const labelEl = btn.querySelector('.mdc-button__label');
+                const text = labelEl?.textContent?.trim().toLowerCase() ?? '';
+                if (text === matchedLabel) {
+                    activeBtn = btn;
                 }
             });
 
-            if (bestMatch) {
-                (bestMatch as { el: HTMLElement; length: number }).el.classList.add('fctf-active');
+            if (!activeBtn) return;
 
-                // Also mark parent sentinel-nested-agenda-container button if nested
-                const container = (bestMatch as { el: HTMLElement }).el.closest('sentinel-nested-agenda-container');
-                if (container) {
-                    const parentBtn = container.closest('sentinel-agenda-element')
-                        ?.querySelector<HTMLElement>(':scope > div > button');
-                    if (parentBtn) {
-                        parentBtn.classList.add('fctf-active');
-                    }
+            activeBtn.classList.add('fctf-active');
+
+            // Also highlight parent expand button if this is a nested item
+            const agendaEl = (activeBtn as HTMLElement)
+                .closest('sentinel-nested-agenda-container')
+                ?.closest('sentinel-agenda-element');
+            if (agendaEl) {
+                const parentBtn = agendaEl.querySelector<HTMLElement>(
+                    ':scope > div > button.mdc-button'
+                );
+                if (parentBtn && parentBtn !== activeBtn) {
+                    parentBtn.classList.add('fctf-active');
                 }
             }
         }, 150);
