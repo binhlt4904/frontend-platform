@@ -90,19 +90,20 @@ export class AppComponent implements OnInit, AfterViewInit {
 
             const urlLower = currentUrl.toLowerCase().split('?')[0];
 
-            // Map URL segments → nav button label text (exact match, lowercase)
-            const segmentToLabel: Array<{ segment: string; label: string }> = [
-                { segment: 'adaptive-definition', label: 'adaptive' },
-                { segment: 'linear-definition', label: 'linear' },
-                { segment: 'adaptive-instance', label: 'adaptive' },
-                { segment: 'linear-instance', label: 'linear' },
-                { segment: 'run', label: 'run' },
-                { segment: 'sandbox-definition', label: 'definition' },
+            // Map URL segments → nav button label text
+            // Order matters: more specific segments first (longer = higher priority)
+            const segmentToLabel: Array<{ segment: string; label: string; parentLabel?: string }> = [
+                { segment: 'adaptive-definition', label: 'adaptive', parentLabel: 'definition' },
+                { segment: 'linear-definition', label: 'linear', parentLabel: 'definition' },
+                { segment: 'adaptive-instance', label: 'adaptive', parentLabel: 'instance' },
+                { segment: 'linear-instance', label: 'linear', parentLabel: 'instance' },
+                { segment: 'sandbox-definition', label: 'definition', parentLabel: 'sandboxes' },
                 { segment: 'pool', label: 'pool' },
                 { segment: 'images', label: 'images' },
-                { segment: 'user', label: 'user' },
-                { segment: 'group', label: 'group' },
                 { segment: 'microservice', label: 'microservice' },
+                { segment: 'group', label: 'group' },
+                { segment: 'user', label: 'user' },
+                { segment: 'run', label: 'run' },
             ];
 
             // Find best match (longest segment wins)
@@ -117,16 +118,26 @@ export class AppComponent implements OnInit, AfterViewInit {
 
             if (!matchedLabel) return;
 
-            // Find button whose visible text matches the label
-            const buttons = navDrawer.querySelectorAll<HTMLElement>('button.mdc-button');
+            // Find a/button whose visible text matches the label, with optional parent context
+            const buttons = navDrawer.querySelectorAll<HTMLElement>('a.mdc-button, button.mdc-button');
             let activeBtn: HTMLElement | null = null;
 
             buttons.forEach((btn) => {
                 const labelEl = btn.querySelector('.mdc-button__label');
                 const text = labelEl?.textContent?.trim().toLowerCase() ?? '';
-                if (text === matchedLabel) {
-                    activeBtn = btn;
+                if (text !== matchedLabel) return;
+
+                // If parentLabel specified, verify the button is inside the right section
+                const match = segmentToLabel.find(s => s.label === matchedLabel && urlLower.includes(s.segment));
+                if (match?.parentLabel) {
+                    // Walk up to find sentinel-root-agenda-container and check its header text
+                    const rootContainer = btn.closest('sentinel-root-agenda-container');
+                    const headerText = rootContainer
+                        ?.querySelector('.container')?.textContent?.trim().toLowerCase() ?? '';
+                    if (!headerText.includes(match.parentLabel)) return;
                 }
+
+                activeBtn = btn;
             });
 
             if (!activeBtn) return;
