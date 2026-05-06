@@ -104,6 +104,10 @@ export class AppComponent implements OnInit, AfterViewInit {
                 { segment: 'group', label: 'group' },
                 { segment: 'user', label: 'user' },
                 { segment: 'run', label: 'run' },
+                { segment: 'adaptive-definition', label: 'definition' },
+                { segment: 'linear-definition', label: 'definition' },
+                { segment: 'adaptive-instance', label: 'instance' },
+                { segment: 'linear-instance', label: 'instance' },
             ];
 
             // Find best match (longest segment wins)
@@ -125,7 +129,8 @@ export class AppComponent implements OnInit, AfterViewInit {
             buttons.forEach((btn) => {
                 const labelEl = btn.querySelector('.mdc-button__label');
                 const text = labelEl?.textContent?.trim().toLowerCase() ?? '';
-                if (text !== matchedLabel) return;
+                // Use includes because expand buttons have icon text prefix e.g. "expand_less Definition"
+                if (!text.includes(matchedLabel!)) return;
 
                 // If parentLabel specified, verify the button is inside the right section
                 const match = segmentToLabel.find(s => s.label === matchedLabel && urlLower.includes(s.segment));
