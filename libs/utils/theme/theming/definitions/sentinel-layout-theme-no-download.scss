@@ -84,10 +84,17 @@ $fctf-white: #ffffff;
                 &.active,
                 &[aria-current="page"],
                 &.sentinel-active {
-                    background-color: #{$fctf-active-bg} !important;
-                    border-left: 3px solid #{$fctf-active-border} !important;
-                    --mat-button-text-label-text-color: #{$fctf-orange} !important;
+                    background-color: #{$fctf-orange} !important;
+                    border-left: none !important;
+                    --mat-button-text-label-text-color: #{$fctf-white} !important;
+                    --mat-icon-button-icon-color: #{$fctf-white} !important;
                     font-weight: 700;
+                    color: #{$fctf-white} !important;
+
+                    .mat-icon,
+                    mat-icon {
+                        color: #{$fctf-white} !important;
+                    }
                 }
             }
 
