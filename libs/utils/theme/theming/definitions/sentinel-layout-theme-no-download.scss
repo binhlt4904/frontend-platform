@@ -71,10 +71,12 @@ $fctf-white: #ffffff;
             button {
                 --mat-button-text-label-text-color: #{$fctf-text-medium};
                 --mat-button-text-ripple-color: rgba(255, 107, 53, 0.15);
-                border-radius: 0 !important;
+                border-radius: 8px !important;
                 font-family: 'Space Mono', monospace;
                 letter-spacing: 0.5px;
                 transition: background-color 0.2s ease;
+                width: calc(100% - 16px) !important;
+                margin: 2px 8px !important;
 
                 &:hover {
                     background-color: rgba(255, 107, 53, 0.08) !important;
@@ -91,6 +93,7 @@ $fctf-white: #ffffff;
                     --mat-icon-button-icon-color: #{$fctf-white} !important;
                     font-weight: 700;
                     color: #{$fctf-white} !important;
+                    border-radius: 8px !important;
 
                     .mat-icon,
                     mat-icon {
