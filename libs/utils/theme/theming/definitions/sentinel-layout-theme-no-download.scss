@@ -75,12 +75,15 @@ $fctf-white: #ffffff;
                 font-family: 'Space Mono', monospace;
                 letter-spacing: 0.5px;
                 transition: background-color 0.2s ease;
-                width: calc(100% - 16px) !important;
-                margin: 2px 8px !important;
+                width: calc(100% - 20px) !important;
+                margin: 1px 10px !important;
+                min-height: 40px !important;
+                height: 40px !important;
 
                 &:hover {
-                    background-color: rgba(255, 107, 53, 0.08) !important;
+                    background-color: #{$fctf-active-bg} !important;
                     --mat-button-text-label-text-color: #{$fctf-orange};
+                    color: #{$fctf-orange} !important;
                 }
 
                 &.active,
