@@ -99,7 +99,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                 { segment: 'run', items: [{ section: 'trainings', label: 'run' }] },
                 { segment: 'sandbox-definition', items: [{ section: 'sandboxes', label: 'definition' }] },
                 { segment: 'pool', items: [{ section: 'sandboxes', label: 'pool' }] },
-                { segment: 'images', items: [{ section: 'sandboxes', label: 'images' }] },
+                { segment: 'sandbox-image', items: [{ section: 'sandboxes', label: 'images' }] },
                 { segment: 'user', items: [{ section: 'administration', label: 'user' }] },
                 { segment: 'group', items: [{ section: 'administration', label: 'group' }] },
                 { segment: 'microservice', items: [{ section: 'administration', label: 'microservice' }] },
