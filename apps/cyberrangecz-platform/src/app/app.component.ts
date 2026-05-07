@@ -90,41 +90,46 @@ export class AppComponent implements OnInit, AfterViewInit {
 
             const urlLower = currentUrl.toLowerCase().split('?')[0];
 
-            // Map URL segments → labels to activate (can activate multiple: child + parent)
-            const segmentToLabels: Array<{ segment: string; labels: string[] }> = [
-                { segment: 'adaptive-definition', labels: ['adaptive', 'definition'] },
-                { segment: 'linear-definition', labels: ['linear', 'definition'] },
-                { segment: 'adaptive-instance', labels: ['adaptive', 'instance'] },
-                { segment: 'linear-instance', labels: ['linear', 'instance'] },
-                { segment: 'sandbox-definition', labels: ['definition'] },
-                { segment: 'pool', labels: ['pool'] },
-                { segment: 'images', labels: ['images'] },
-                { segment: 'microservice', labels: ['microservice'] },
-                { segment: 'group', labels: ['group'] },
-                { segment: 'user', labels: ['user'] },
-                { segment: 'run', labels: ['run'] },
+            // Map URL segments → { section, label } to activate
+            const segmentMap: Array<{ segment: string; items: Array<{ section: string; label: string }> }> = [
+                { segment: 'adaptive-definition', items: [{ section: 'trainings', label: 'definition' }] },
+                { segment: 'linear-definition', items: [{ section: 'trainings', label: 'definition' }] },
+                { segment: 'adaptive-instance', items: [{ section: 'trainings', label: 'instance' }] },
+                { segment: 'linear-instance', items: [{ section: 'trainings', label: 'instance' }] },
+                { segment: 'run', items: [{ section: 'trainings', label: 'run' }] },
+                { segment: 'sandbox-definition', items: [{ section: 'sandboxes', label: 'definition' }] },
+                { segment: 'pool', items: [{ section: 'sandboxes', label: 'pool' }] },
+                { segment: 'images', items: [{ section: 'sandboxes', label: 'images' }] },
+                { segment: 'user', items: [{ section: 'administration', label: 'user' }] },
+                { segment: 'group', items: [{ section: 'administration', label: 'group' }] },
+                { segment: 'microservice', items: [{ section: 'administration', label: 'microservice' }] },
             ];
 
             // Find best match (longest segment wins)
-            let matchedLabels: string[] = [];
+            let matchedItems: Array<{ section: string; label: string }> = [];
             let bestLen = 0;
-            for (const { segment, labels } of segmentToLabels) {
+            for (const { segment, items } of segmentMap) {
                 if (urlLower.includes(segment) && segment.length > bestLen) {
-                    matchedLabels = labels;
+                    matchedItems = items;
                     bestLen = segment.length;
                 }
             }
 
-            if (!matchedLabels.length) return;
+            if (!matchedItems.length) return;
 
-            // Activate all matched labels
-            const navButtons = navDrawer.querySelectorAll<HTMLElement>('a.mdc-button, button.mdc-button');
-            navButtons.forEach((btn) => {
-                const labelEl = btn.querySelector('.mdc-button__label');
-                const text = labelEl?.textContent?.trim().toLowerCase() ?? '';
-                if (matchedLabels.includes(text)) {
-                    btn.classList.add('fctf-active');
-                }
+            // For each section in nav, find and activate matching buttons
+            const sections = navDrawer.querySelectorAll<HTMLElement>('sentinel-root-agenda-container');
+            sections.forEach((section) => {
+                const sectionText = section.querySelector('.container')?.textContent?.trim().toLowerCase() ?? '';
+                section.querySelectorAll<HTMLElement>('a.mdc-button, button.mdc-button').forEach((btn) => {
+                    const label = btn.querySelector('.mdc-button__label')?.textContent?.trim().toLowerCase() ?? '';
+                    const shouldActivate = matchedItems.some(
+                        item => sectionText.includes(item.section) && label === item.label
+                    );
+                    if (shouldActivate) {
+                        btn.classList.add('fctf-active');
+                    }
+                });
             });
         }, 150);
     }
