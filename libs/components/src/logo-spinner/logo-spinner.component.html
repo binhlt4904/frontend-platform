@@ -1,11 +1,5 @@
-<div
-    (sentinelResize)="onSpinnerResize($event)"
-    class="wh-100 resize-div"
->
-    <div
-        [style.transform]="'scale(' + spinnerScale() + ')'"
-        class="spinner-container"
-    >
+<div (sentinelResize)="onSpinnerResize($event)" class="wh-100 resize-div">
+    <div [style.transform]="'scale(' + spinnerScale() + ')'" class="spinner-container">
         <div class="perspective">
             <div class="scene">
                 <div class="plane xy">
