@@ -64,7 +64,22 @@ $fctf-white: #ffffff;
             box-shadow: 2px 0 8px rgba(255, 107, 53, 0.06);
         }
 
-        // Active nav item — full orange background + white text
+        // ── Logo size ──
+        .sentinel-logo-wrapper {
+            margin-bottom: 1rem;
+            height: fit-content !important;
+            padding: 16px 12px 8px 12px;
+        }
+
+        .sentinel-logo {
+            aspect-ratio: auto !important;
+            min-height: unset !important;
+            width: 100% !important;
+            max-height: 120px;
+            object-fit: contain;
+        }
+
+        // ── Nav links: dark text, orange active ──
         .nav-drawer {
 
             a,
@@ -152,10 +167,12 @@ $fctf-white: #ffffff;
 
             a.mat-mdc-button {
                 color: #{$fctf-text-medium};
-                border-radius: 0;
+                border-radius: 8px;
+                margin: 1px 10px;
+                width: calc(100% - 20px);
 
                 &:hover {
-                    background-color: rgba(255, 107, 53, 0.08);
+                    background-color: #{$fctf-active-bg};
                     color: #{$fctf-orange};
                 }
 
