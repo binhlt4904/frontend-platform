@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Lato:wght@300;400&display=swap');
 
-*, *::before, *::after { box-sizing: border-box !important; }
+*,
+*::before,
+*::after {
+    box-sizing: border-box !important;
+}
 
 html.login-pf body {
     min-height: 100vh !important;
@@ -9,8 +13,8 @@ html.login-pf body {
     align-items: center !important;
     justify-content: center !important;
     font-family: 'Lato', sans-serif !important;
-    background-color: #1a1a1a !important;
-    background-image: linear-gradient(135deg, #1a1a1a 0%, #2e2e2e 40%, #222 70%, #111 100%) !important;
+    background-color: #ff6b35 !important;
+    background-image: linear-gradient(135deg, #ff6b35 0%, #ff8c52 30%, #e85d2a 60%, #ff6b35 100%) !important;
     margin: 0 !important;
     padding: 40px 20px !important;
 }
@@ -19,7 +23,7 @@ html.login-pf body::before {
     content: '' !important;
     position: fixed !important;
     inset: 0 !important;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900'%3E%3Cpolygon points='0,0 240,0 120,150' fill='rgba(80,80,80,0.18)'/%3E%3Cpolygon points='240,0 480,0 360,180' fill='rgba(60,60,60,0.12)'/%3E%3Cpolygon points='480,0 720,0 600,160' fill='rgba(70,70,70,0.15)'/%3E%3Cpolygon points='720,0 960,0 840,170' fill='rgba(55,55,55,0.13)'/%3E%3Cpolygon points='960,0 1200,0 1080,155' fill='rgba(75,75,75,0.16)'/%3E%3Cpolygon points='1200,0 1440,0 1320,160' fill='rgba(65,65,65,0.14)'/%3E%3Cpolygon points='0,0 120,150 0,300' fill='rgba(50,50,50,0.1)'/%3E%3Cpolygon points='120,150 360,180 240,300' fill='rgba(65,65,65,0.12)'/%3E%3Cpolygon points='360,180 600,160 480,340' fill='rgba(55,55,55,0.13)'/%3E%3Cpolygon points='600,160 840,170 720,330' fill='rgba(70,70,70,0.11)'/%3E%3Cpolygon points='0,300 240,300 120,450' fill='rgba(45,45,45,0.15)'/%3E%3Cpolygon points='240,300 480,340 360,500' fill='rgba(65,65,65,0.1)'/%3E%3C/svg%3E") !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900'%3E%3Cpolygon points='0,0 240,0 120,150' fill='rgba(255,255,255,0.06)'/%3E%3Cpolygon points='240,0 480,0 360,180' fill='rgba(255,255,255,0.04)'/%3E%3Cpolygon points='480,0 720,0 600,160' fill='rgba(255,255,255,0.07)'/%3E%3Cpolygon points='720,0 960,0 840,170' fill='rgba(255,255,255,0.05)'/%3E%3Cpolygon points='960,0 1200,0 1080,155' fill='rgba(255,255,255,0.06)'/%3E%3Cpolygon points='1200,0 1440,0 1320,160' fill='rgba(255,255,255,0.04)'/%3E%3Cpolygon points='0,0 120,150 0,300' fill='rgba(0,0,0,0.05)'/%3E%3Cpolygon points='120,150 360,180 240,300' fill='rgba(255,255,255,0.05)'/%3E%3Cpolygon points='360,180 600,160 480,340' fill='rgba(0,0,0,0.04)'/%3E%3Cpolygon points='600,160 840,170 720,330' fill='rgba(255,255,255,0.06)'/%3E%3Cpolygon points='0,300 240,300 120,450' fill='rgba(255,255,255,0.04)'/%3E%3Cpolygon points='240,300 480,340 360,500' fill='rgba(0,0,0,0.05)'/%3E%3C/svg%3E") !important;
     background-size: cover !important;
     z-index: 0 !important;
     pointer-events: none !important;
@@ -57,15 +61,18 @@ html.login-pf body::before {
     font-weight: 700 !important;
     font-size: 1.65rem !important;
     letter-spacing: 0.35em !important;
-    color: #e8e8e8 !important;
+    color: #ffffff !important;
     white-space: nowrap !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* ── Override tất cả wrapper của Keycloak để card to hơn ── */
-.login-pf-page { width: 100% !important; }
+.login-pf-page {
+    width: 100% !important;
+}
 
-.login-pf-page > .container,
-.login-pf-page > .container-fluid {
+.login-pf-page>.container,
+.login-pf-page>.container-fluid {
     width: 100% !important;
     max-width: 500px !important;
     padding: 0 !important;
@@ -74,7 +81,9 @@ html.login-pf body::before {
     z-index: 1 !important;
 }
 
-.login-pf-page .row { margin: 0 !important; }
+.login-pf-page .row {
+    margin: 0 !important;
+}
 
 .login-pf-page .col-sm-8,
 .login-pf-page .col-sm-offset-2 {
@@ -91,7 +100,7 @@ html.login-pf body::before {
     border: none !important;
     border-top: 4px solid #ff6b35 !important;
     border-radius: 0 !important;
-    box-shadow: 0 4px 32px rgba(0,0,0,0.5) !important;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5) !important;
     padding: 44px 48px 48px !important;
     margin: 0 auto !important;
     position: relative !important;
@@ -133,7 +142,7 @@ html.login-pf body::before {
 
 .login-pf-page .pf-c-input-group:focus-within {
     border-color: #ff6b35 !important;
-    box-shadow: 0 0 0 2px rgba(255,107,53,0.15) !important;
+    box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.15) !important;
 }
 
 /* ── Inputs ── */
@@ -162,13 +171,18 @@ html.login-pf body::before {
 
 .login-pf-page input.pf-c-form-control:not(.pf-c-input-group *):focus {
     border-color: #ff6b35 !important;
-    box-shadow: 0 0 0 2px rgba(255,107,53,0.15) !important;
+    box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.15) !important;
 }
 
-.login-pf-page .pf-c-form-control:focus { outline: none !important; box-shadow: none !important; }
+.login-pf-page .pf-c-form-control:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
 
 .login-pf-page .pf-c-form__group,
-.login-pf-page .form-group { margin-bottom: 22px !important; }
+.login-pf-page .form-group {
+    margin-bottom: 22px !important;
+}
 
 /* ── Eye icon: nằm trong group, không có viền ── */
 .login-pf-page .pf-c-button.pf-m-control {
@@ -185,8 +199,14 @@ html.login-pf body::before {
     flex-shrink: 0 !important;
 }
 
-.login-pf-page .pf-c-button.pf-m-control:hover { color: #ff6b35 !important; }
-.login-pf-page .pf-c-button.pf-m-control:focus { outline: none !important; box-shadow: none !important; }
+.login-pf-page .pf-c-button.pf-m-control:hover {
+    color: #ff6b35 !important;
+}
+
+.login-pf-page .pf-c-button.pf-m-control:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
 
 /* ── Sign In button ── */
 .login-pf-page .pf-c-button.pf-m-primary,
@@ -215,12 +235,17 @@ html.login-pf body::before {
 }
 
 /* ── Links ── */
-.login-pf-page a, .login-pf-page a:visited {
+.login-pf-page a,
+.login-pf-page a:visited {
     color: #ff6b35 !important;
     text-decoration: none !important;
     font-size: 0.85rem !important;
 }
-.login-pf-page a:hover { color: #e85d2a !important; text-decoration: underline !important; }
+
+.login-pf-page a:hover {
+    color: #e85d2a !important;
+    text-decoration: underline !important;
+}
 
 /* ── Alert ── */
 .login-pf-page .alert-error {
@@ -236,6 +261,6 @@ html.login-pf body::before {
 .login-pf-page #kc-info {
     text-align: center !important;
     margin-top: 20px !important;
-    color: rgba(255,255,255,0.6) !important;
+    color: rgba(255, 255, 255, 0.6) !important;
     font-size: 0.82rem !important;
 }
