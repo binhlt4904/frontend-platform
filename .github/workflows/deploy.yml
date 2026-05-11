@@ -44,3 +44,29 @@ jobs:
               -o StrictHostKeyChecking=no \
               vagrant@192.168.121.36 \
               "sudo kubectl patch deployment angular-frontend -n crczp -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"angular-frontend\",\"imagePullPolicy\":\"Always\"}]}}}}' && sudo kubectl rollout restart deployment/angular-frontend -n crczp && sudo kubectl rollout status deployment/angular-frontend -n crczp --timeout=300s"
+      
+      - name: Deploy Keycloak theme
+        uses: appleboy/ssh-action@v1
+        with:
+          host: 100.76.219.87
+          username: sp26-ojt
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            ssh -i /home/sp26-ojt/kypo-sp26/kypo-sp26/.vagrant/machines/default/libvirt/private_key \
+              -o StrictHostKeyChecking=no vagrant@192.168.121.36 << 'ENDSSH'
+              KC_POD=keycloak-0
+              KC_NS=crczp
+              THEME=kypo-theme
+              RAW=https://raw.githubusercontent.com/binhlt4904/frontend-platform/master/keycloak-theme
+
+              sudo kubectl exec -n $KC_NS $KC_POD -- \
+                mkdir -p /opt/keycloak/themes/$THEME/login/resources/css
+
+              sudo kubectl exec -n $KC_NS $KC_POD -- \
+                /bin/bash -c "curl -fsSL $RAW/login/theme.properties \
+                -o /opt/keycloak/themes/$THEME/login/theme.properties"
+
+              sudo kubectl exec -n $KC_NS $KC_POD -- \
+                /bin/bash -c "curl -fsSL $RAW/login/resources/css/login.css \
+                -o /opt/keycloak/themes/$THEME/login/resources/css/login.css"
+            ENDSSH
