@@ -41,8 +41,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             ssh -i /home/sp26-ojt/kypo-sp26/kypo-sp26/.vagrant/machines/default/libvirt/private_key \
-              -o StrictHostKeyChecking=no \
-              vagrant@192.168.121.36 \
+              -o StrictHostKeyChecking=no vagrant@192.168.121.36 \
               "sudo kubectl patch deployment angular-frontend -n crczp -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"angular-frontend\",\"imagePullPolicy\":\"Always\"}]}}}}' && sudo kubectl rollout restart deployment/angular-frontend -n crczp && sudo kubectl rollout status deployment/angular-frontend -n crczp --timeout=300s"
 
       - name: Copy Keycloak theme to server
@@ -61,30 +60,34 @@ jobs:
           username: sp26-ojt
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            scp -i /home/sp26-ojt/kypo-sp26/kypo-sp26/.vagrant/machines/default/libvirt/private_key \
-              -o StrictHostKeyChecking=no \
-              /tmp/kypo-theme-ci/keycloak-theme/login/theme.properties \
-              vagrant@192.168.121.36:/tmp/kc-theme.properties
+            VAGRANT_KEY="/home/sp26-ojt/kypo-sp26/kypo-sp26/.vagrant/machines/default/libvirt/private_key"
+            VAGRANT="vagrant@192.168.121.36"
+            SRC="/tmp/kypo-theme-ci/keycloak-theme"
 
-            scp -i /home/sp26-ojt/kypo-sp26/kypo-sp26/.vagrant/machines/default/libvirt/private_key \
-              -o StrictHostKeyChecking=no \
-              /tmp/kypo-theme-ci/keycloak-theme/login/resources/css/login.css \
-              vagrant@192.168.121.36:/tmp/kc-login.css
+            scp -i $VAGRANT_KEY -o StrictHostKeyChecking=no $SRC/login/theme.properties $VAGRANT:/tmp/kc-theme.properties
+            scp -i $VAGRANT_KEY -o StrictHostKeyChecking=no $SRC/login/resources/css/login.css $VAGRANT:/tmp/kc-login.css
+            scp -i $VAGRANT_KEY -o StrictHostKeyChecking=no $SRC/login/resources/js/cyber-bg.js $VAGRANT:/tmp/kc-cyber-bg.js
 
-            ssh -i /home/sp26-ojt/kypo-sp26/kypo-sp26/.vagrant/machines/default/libvirt/private_key \
-              -o StrictHostKeyChecking=no vagrant@192.168.121.36 << 'ENDSSH'
+            ssh -i $VAGRANT_KEY -o StrictHostKeyChecking=no $VAGRANT << 'ENDSSH'
               KC_POD=keycloak-0
               KC_NS=crczp
-              THEME=kypo-theme-2
+              THEME=kypo-anim
 
               sudo kubectl exec -n $KC_NS $KC_POD -- \
-                mkdir -p /opt/keycloak/themes/$THEME/login/resources/css
+                mkdir -p /opt/keycloak/themes/$THEME/login/resources/css \
+                         /opt/keycloak/themes/$THEME/login/resources/js
 
-              cat /tmp/kc-theme.properties | base64 | \
-                sudo kubectl exec -i -n $KC_NS $KC_POD -- \
-                /bin/bash -c "base64 -d > /opt/keycloak/themes/$THEME/login/theme.properties"
+              cat /tmp/kc-theme.properties | base64 | sudo kubectl exec -i -n $KC_NS $KC_POD -- /bin/bash -c "base64 -d > /opt/keycloak/themes/$THEME/login/theme.properties"
+              cat /tmp/kc-login.css | base64 | sudo kubectl exec -i -n $KC_NS $KC_POD -- /bin/bash -c "base64 -d > /opt/keycloak/themes/$THEME/login/resources/css/login.css"
+              cat /tmp/kc-cyber-bg.js | base64 | sudo kubectl exec -i -n $KC_NS $KC_POD -- /bin/bash -c "base64 -d > /opt/keycloak/themes/$THEME/login/resources/js/cyber-bg.js"
 
-              cat /tmp/kc-login.css | base64 | \
-                sudo kubectl exec -i -n $KC_NS $KC_POD -- \
-                /bin/bash -c "base64 -d > /opt/keycloak/themes/$THEME/login/resources/css/login.css"
+              sudo kubectl exec -n $KC_NS $KC_POD -- /bin/bash -c "
+                /opt/keycloak/bin/kcadm.sh config credentials \
+                  --server http://localhost:8080/keycloak \
+                  --realm master \
+                  --user \$KEYCLOAK_ADMIN \
+                  --password \$KEYCLOAK_ADMIN_PASSWORD 2>/dev/null && \
+                /opt/keycloak/bin/kcadm.sh update realms/crczp \
+                  -s loginTheme=$THEME 2>/dev/null || true
+              "
             ENDSSH

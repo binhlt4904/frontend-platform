@@ -21,31 +21,15 @@ html.login-pf body {
     overflow: hidden !important;
 }
 
-html.login-pf body::before {
-    content: '' !important;
-    position: fixed !important;
-    inset: 0 !important;
-    background-image:
-        radial-gradient(circle at 15% 20%, rgba(255, 107, 53, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 85% 80%, rgba(255, 107, 53, 0.06) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(255, 140, 82, 0.04) 0%, transparent 60%) !important;
-    z-index: 0 !important;
-    pointer-events: none !important;
+#cyber-bg {
+    opacity: 0.22 !important;
 }
 
-/* Floating CTF elements */
-html.login-pf body::after {
-    content: '' !important;
-    position: fixed !important;
-    inset: 0 !important;
-    background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900'%3E%3C!-- FLAG top-left --%3E%3Crect x='80' y='120' width='60' height='50' rx='6' fill='none' stroke='%23ff6b35' stroke-width='1.5' opacity='0.2'/%3E%3Cline x1='80' y1='120' x2='80' y2='170' stroke='%23ff6b35' stroke-width='1.5' opacity='0.2'/%3E%3Cpolygon points='80,120 140,135 80,150' fill='%23ff6b35' opacity='0.15'/%3E%3C!-- LOCK top-right --%3E%3Crect x='1280' y='80' width='55' height='45' rx='5' fill='none' stroke='%23ff6b35' stroke-width='1.5' opacity='0.18'/%3E%3Cpath d='M1293 80 Q1293 60 1307 60 Q1321 60 1321 80' fill='none' stroke='%23ff6b35' stroke-width='1.5' opacity='0.18'/%3E%3Ccircle cx='1307' cy='103' r='6' fill='%23ff6b35' opacity='0.15'/%3E%3C!-- TERMINAL bottom-left --%3E%3Crect x='100' y='720' width='80' height='55' rx='4' fill='none' stroke='%23ff6b35' stroke-width='1.5' opacity='0.15'/%3E%3Ctext x='110' y='743' font-family='monospace' font-size='10' fill='%23ff6b35' opacity='0.2'%3E%3E_%3C/text%3E%3Cline x1='110' y1='752' x2='155' y2='752' stroke='%23ff6b35' stroke-width='1' opacity='0.15'/%3E%3Cline x1='110' y1='762' x2='145' y2='762' stroke='%23ff6b35' stroke-width='1' opacity='0.12'/%3E%3C!-- SHIELD bottom-right --%3E%3Cpath d='M1330 700 L1360 710 L1360 740 Q1360 760 1330 770 Q1300 760 1300 740 L1300 710 Z' fill='none' stroke='%23ff6b35' stroke-width='1.5' opacity='0.18'/%3E%3Cpath d='M1320 735 L1327 742 L1342 727' fill='none' stroke='%23ff6b35' stroke-width='2' opacity='0.2'/%3E%3C!-- KEY mid-left --%3E%3Ccircle cx='60' cy='450' r='18' fill='none' stroke='%23ff6b35' stroke-width='1.5' opacity='0.15'/%3E%3Cline x1='78' y1='450' x2='110' y2='450' stroke='%23ff6b35' stroke-width='1.5' opacity='0.15'/%3E%3Cline x1='100' y1='450' x2='100' y2='462' stroke='%23ff6b35' stroke-width='1.5' opacity='0.15'/%3E%3Cline x1='110' y1='450' x2='110' y2='462' stroke='%23ff6b35' stroke-width='1.5' opacity='0.15'/%3E%3C!-- BINARY mid-right --%3E%3Ctext x='1360' y='400' font-family='monospace' font-size='11' fill='%23ff6b35' opacity='0.12'%3E01101%3C/text%3E%3Ctext x='1355' y='415' font-family='monospace' font-size='11' fill='%23ff6b35' opacity='0.1'%3E10010%3C/text%3E%3Ctext x='1362' y='430' font-family='monospace' font-size='11' fill='%23ff6b35' opacity='0.08'%3E11001%3C/text%3E%3C!-- HEX top-center --%3E%3Ctext x='680' y='50' font-family='monospace' font-size='11' fill='%23ff6b35' opacity='0.1'%3E0x4654505F4354460A%3C/text%3E%3C!-- DOTS pattern --%3E%3Ccircle cx='250' cy='180' r='3' fill='%23ff6b35' opacity='0.1'/%3E%3Ccircle cx='1200' cy='300' r='3' fill='%23ff6b35' opacity='0.1'/%3E%3Ccircle cx='180' cy='600' r='3' fill='%23ff6b35' opacity='0.1'/%3E%3Ccircle cx='1380' cy='550' r='3' fill='%23ff6b35' opacity='0.1'/%3E%3Ccircle cx='400' cy='820' r='3' fill='%23ff6b35' opacity='0.08'/%3E%3Ccircle cx='1050' cy='120' r='3' fill='%23ff6b35' opacity='0.08'/%3E%3C/svg%3E") !important;
-    background-size: cover !important;
-    z-index: 0 !important;
-    pointer-events: none !important;
+.login-pf-page {
+    position: relative !important;
+    z-index: 1 !important;
 }
 
-/* ── Header LOGIN ── */
 .login-pf-page #kc-header {
     position: relative !important;
     z-index: 1 !important;
@@ -81,23 +65,13 @@ html.login-pf body::after {
     white-space: nowrap !important;
 }
 
-/* ── Override tất cả wrapper của Keycloak để card to hơn ── */
-.login-pf-page {
-    width: 100% !important;
-}
-
-.login-pf-page>.container,
-.login-pf-page>.container-fluid {
+.login-pf-page .container-fluid {
+    position: relative !important;
+    z-index: 1 !important;
     width: 100% !important;
     max-width: 500px !important;
     padding: 0 !important;
     margin: 0 auto !important;
-    position: relative !important;
-    z-index: 1 !important;
-}
-
-.login-pf-page .row {
-    margin: 0 !important;
 }
 
 .login-pf-page .col-sm-8,
@@ -109,13 +83,12 @@ html.login-pf body::after {
     padding: 0 !important;
 }
 
-/* ── Card ── */
 .login-pf-page .card-pf {
-    background: #ffffff !important;
+    background: rgba(255, 255, 255, 0.96) !important;
     border: none !important;
     border-top: 4px solid #ff6b35 !important;
     border-radius: 0 !important;
-    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 107, 53, 0.1) !important;
     padding: 44px 48px 48px !important;
     margin: 0 auto !important;
     position: relative !important;
@@ -124,7 +97,6 @@ html.login-pf body::after {
     max-width: 500px !important;
 }
 
-/* ── Title ── */
 .login-pf-page #kc-page-title {
     font-family: 'Lato', sans-serif !important;
     font-weight: 300 !important;
@@ -134,7 +106,6 @@ html.login-pf body::after {
     margin-bottom: 32px !important;
 }
 
-/* ── Labels ── */
 .login-pf-page label {
     display: block !important;
     font-family: 'Lato', sans-serif !important;
@@ -146,7 +117,6 @@ html.login-pf body::after {
     letter-spacing: normal !important;
 }
 
-/* ── Input group wrapper: fix icon mắt nằm trong viền ── */
 .login-pf-page .pf-c-input-group {
     display: flex !important;
     border: 1px solid #d0d0d0 !important;
@@ -160,16 +130,15 @@ html.login-pf body::after {
     box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.15) !important;
 }
 
-/* ── Inputs ── */
 .login-pf-page .pf-c-form-control,
 .login-pf-page input.pf-c-form-control {
     width: 100% !important;
-    border: none !important;
-    border-radius: 0 !important;
+    border: 1px solid #d0d0d0 !important;
+    border-radius: 4px !important;
     outline: none !important;
     font-size: 0.95rem !important;
     padding: 10px 12px !important;
-    background: transparent !important;
+    background: #ffffff !important;
     color: #222 !important;
     box-shadow: none !important;
     height: auto !important;
@@ -177,21 +146,14 @@ html.login-pf body::after {
     flex: 1 !important;
 }
 
-/* Input không có group (username) */
-.login-pf-page input.pf-c-form-control:not(.pf-c-input-group *) {
-    border: 1px solid #d0d0d0 !important;
-    border-radius: 4px !important;
-    padding: 10px 12px !important;
-}
-
-.login-pf-page input.pf-c-form-control:not(.pf-c-input-group *):focus {
-    border-color: #ff6b35 !important;
-    box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.15) !important;
+.login-pf-page .pf-c-input-group .pf-c-form-control {
+    border: none !important;
+    border-radius: 0 !important;
 }
 
 .login-pf-page .pf-c-form-control:focus {
-    outline: none !important;
-    box-shadow: none !important;
+    border-color: #ff6b35 !important;
+    box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.15) !important;
 }
 
 .login-pf-page .pf-c-form__group,
@@ -199,7 +161,6 @@ html.login-pf body::after {
     margin-bottom: 22px !important;
 }
 
-/* ── Eye icon: nằm trong group, không có viền ── */
 .login-pf-page .pf-c-button.pf-m-control {
     background: transparent !important;
     border: none !important;
@@ -211,7 +172,6 @@ html.login-pf body::after {
     padding: 0 12px !important;
     display: flex !important;
     align-items: center !important;
-    flex-shrink: 0 !important;
 }
 
 .login-pf-page .pf-c-button.pf-m-control:hover {
@@ -223,7 +183,6 @@ html.login-pf body::after {
     box-shadow: none !important;
 }
 
-/* ── Sign In button ── */
 .login-pf-page .pf-c-button.pf-m-primary,
 .login-pf-page #kc-login {
     display: block !important;
@@ -249,7 +208,6 @@ html.login-pf body::after {
     background-color: #e85d2a !important;
 }
 
-/* ── Links ── */
 .login-pf-page a,
 .login-pf-page a:visited {
     color: #ff6b35 !important;
@@ -262,7 +220,6 @@ html.login-pf body::after {
     text-decoration: underline !important;
 }
 
-/* ── Alert ── */
 .login-pf-page .alert-error {
     background: #fff0eb !important;
     color: #c94a1a !important;
