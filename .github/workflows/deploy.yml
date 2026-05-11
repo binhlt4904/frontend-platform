@@ -75,7 +75,7 @@ jobs:
               -o StrictHostKeyChecking=no vagrant@192.168.121.36 << 'ENDSSH'
               KC_POD=keycloak-0
               KC_NS=crczp
-              THEME=kypo-theme-1
+              THEME=kypo-theme-2
 
               sudo kubectl exec -n $KC_NS $KC_POD -- \
                 mkdir -p /opt/keycloak/themes/$THEME/login/resources/css
