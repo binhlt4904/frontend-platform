@@ -44,7 +44,16 @@ jobs:
               -o StrictHostKeyChecking=no \
               vagrant@192.168.121.36 \
               "sudo kubectl patch deployment angular-frontend -n crczp -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"angular-frontend\",\"imagePullPolicy\":\"Always\"}]}}}}' && sudo kubectl rollout restart deployment/angular-frontend -n crczp && sudo kubectl rollout status deployment/angular-frontend -n crczp --timeout=300s"
-      
+
+      - name: Copy Keycloak theme to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: 100.76.219.87
+          username: sp26-ojt
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "keycloak-theme/"
+          target: "/tmp/kypo-theme-ci/"
+
       - name: Deploy Keycloak theme
         uses: appleboy/ssh-action@v1
         with:
@@ -52,21 +61,30 @@ jobs:
           username: sp26-ojt
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            scp -i /home/sp26-ojt/kypo-sp26/kypo-sp26/.vagrant/machines/default/libvirt/private_key \
+              -o StrictHostKeyChecking=no \
+              /tmp/kypo-theme-ci/keycloak-theme/login/theme.properties \
+              vagrant@192.168.121.36:/tmp/kc-theme.properties
+
+            scp -i /home/sp26-ojt/kypo-sp26/kypo-sp26/.vagrant/machines/default/libvirt/private_key \
+              -o StrictHostKeyChecking=no \
+              /tmp/kypo-theme-ci/keycloak-theme/login/resources/css/login.css \
+              vagrant@192.168.121.36:/tmp/kc-login.css
+
             ssh -i /home/sp26-ojt/kypo-sp26/kypo-sp26/.vagrant/machines/default/libvirt/private_key \
               -o StrictHostKeyChecking=no vagrant@192.168.121.36 << 'ENDSSH'
               KC_POD=keycloak-0
               KC_NS=crczp
               THEME=kypo-theme
-              RAW=https://raw.githubusercontent.com/binhlt4904/frontend-platform/master/keycloak-theme
 
               sudo kubectl exec -n $KC_NS $KC_POD -- \
                 mkdir -p /opt/keycloak/themes/$THEME/login/resources/css
 
-              sudo kubectl exec -n $KC_NS $KC_POD -- \
-                /bin/bash -c "curl -fsSL $RAW/login/theme.properties \
-                -o /opt/keycloak/themes/$THEME/login/theme.properties"
+              cat /tmp/kc-theme.properties | base64 | \
+                sudo kubectl exec -i -n $KC_NS $KC_POD -- \
+                /bin/bash -c "base64 -d > /opt/keycloak/themes/$THEME/login/theme.properties"
 
-              sudo kubectl exec -n $KC_NS $KC_POD -- \
-                /bin/bash -c "curl -fsSL $RAW/login/resources/css/login.css \
-                -o /opt/keycloak/themes/$THEME/login/resources/css/login.css"
+              cat /tmp/kc-login.css | base64 | \
+                sudo kubectl exec -i -n $KC_NS $KC_POD -- \
+                /bin/bash -c "base64 -d > /opt/keycloak/themes/$THEME/login/resources/css/login.css"
             ENDSSH
