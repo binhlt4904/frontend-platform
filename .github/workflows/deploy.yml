@@ -71,7 +71,7 @@ jobs:
             ssh -i $VAGRANT_KEY -o StrictHostKeyChecking=no $VAGRANT << 'ENDSSH'
               KC_POD=keycloak-0
               KC_NS=crczp
-              THEME=kypo-anim
+              THEME=kypo-animation
 
               sudo kubectl exec -n $KC_NS $KC_POD -- \
                 mkdir -p /opt/keycloak/themes/$THEME/login/resources/css \
