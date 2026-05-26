@@ -10,17 +10,40 @@
         />
     </div>
 }
-<div class="level-header">
-    <h1
-        class="level-title"
-    >{{ displayedLevelTitle$ | async }}</h1>
-    @let startTime = (startTime$ | async);
-    @if (startTime) {
-        <crczp-training-timer
-            [startTime]="startTime"
-            class="timer" matTooltip="Time since the start of the run" matTooltipPosition="above" />
-    }
+
+<div class="run-status-bar">
+    <div class="run-stat">
+        <span class="stat-lbl">Phase</span>
+        <span class="stat-val orange">{{ displayedLevelTitle$ | async }}</span>
+    </div>
+    <div class="run-stat">
+        <span class="stat-lbl">Status</span>
+        <span class="stat-val green">
+            <span class="status-dot"></span>Running
+        </span>
+    </div>
+    <div class="run-stat">
+        <span class="stat-lbl">Sandbox</span>
+        <span class="stat-val">{{ runService.runInfo$.observeProperty().sandboxInstanceId.$() | async }}</span>
+    </div>
+    <div class="run-stat">
+        <span class="stat-lbl">Progress</span>
+        <span class="stat-val">{{ (stepperSelectedIndex() ?? 0) + 1 }} / {{ stepperSteps().length }}</span>
+    </div>
+    <div class="run-stat">
+        <span class="stat-lbl">Elapsed</span>
+        @let startTime = (startTime$ | async);
+        @if (startTime) {
+            <crczp-training-timer
+                [startTime]="startTime"
+                class="timer"
+                matTooltip="Time since the start of the run"
+                matTooltipPosition="above"
+            />
+        }
+    </div>
 </div>
+
 <div #levelContent class="hflex level-content">
 
     @switch (levelType()) {

@@ -3,40 +3,87 @@
 }
 
 .training-run-stepper {
-    padding-right: 40px;
+    padding-right: 0;
     overflow: hidden;
+    background: var(--kypo-bg2, #161b26);
+    border-bottom: 1px solid var(--kypo-border, #2a3347);
 }
 
-.level-header {
+// ── Status bar ──────────────────────────────────────────────
+.run-status-bar {
     display: flex;
     flex-direction: row;
-    justify-items: stretch;
+    align-items: stretch;
+    flex-shrink: 0;
+    background: var(--kypo-bg, #0f1117);
+    border-bottom: 1px solid var(--kypo-border, #2a3347);
+    overflow-x: auto;
+
+    &::-webkit-scrollbar { height: 0; }
+}
+
+.run-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 18px;
+    border-right: 1px solid var(--kypo-border, #2a3347);
+    min-width: fit-content;
+
+    &:last-child { border-right: none; margin-left: auto; }
+}
+
+.stat-lbl {
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--kypo-muted, #4a5878);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.stat-val {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--kypo-text, #cdd6f4);
+    white-space: nowrap;
+    display: flex;
     align-items: center;
-    width: calc(100% - 40px);
-    margin-top: 0;
+    gap: 5px;
+    font-family: 'Space Mono', monospace;
+
+    &.orange { color: var(--primary-40, #ff6b35); }
+    &.green  { color: var(--kypo-green, #3fb950); }
 }
 
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--kypo-green, #3fb950);
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+// Timer in status bar: reset font sizing from training-timer defaults
 .timer {
-    text-align: right;
-    width: 15rem;
+    crczp-training-timer {
+        display: flex;
+    }
 }
 
-.level-title {
-    margin-left: 15rem !important;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 2rem !important;
-}
-
+// ── Content area ──────────────────────────────────────────────
 .level-content {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    flex-grow: 0;
-    flex-shrink: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
     justify-content: flex-start;
     width: 100%;
     overflow-x: hidden;
+    background: var(--kypo-bg, #0f1117);
+    min-height: 0;
 }
 
 .level-content > *:first-child {
@@ -49,30 +96,26 @@
     flex: 0 0 auto;
 }
 
-
 @media (max-width: 1400px) {
-    .level-title {
-        margin-left: 2rem !important;
-        text-align: left !important;
+    .run-status-bar {
+        flex-wrap: wrap;
+    }
+
+    .run-stat {
+        padding: 5px 12px;
     }
 }
 
 @media (max-width: 748px) {
-
-    .level-header {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+    .run-status-bar {
+        flex-wrap: wrap;
     }
 
-    .level-title {
-        margin: 0 0 1rem 0 !important;
-        text-align: center !important;
-    }
+    .run-stat {
+        border-right: none;
+        border-bottom: 1px solid var(--kypo-border, #2a3347);
+        padding: 5px 12px;
 
-    .timer {
-        width: fit-content;
-        scale: 0.75;
+        &:last-child { margin-left: 0; }
     }
 }
-

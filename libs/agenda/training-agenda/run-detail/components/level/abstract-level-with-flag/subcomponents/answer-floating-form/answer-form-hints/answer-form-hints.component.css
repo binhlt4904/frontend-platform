@@ -8,32 +8,61 @@
 .hints-row {
     display: flex;
     flex-direction: row;
-    gap: 1rem;
-    max-width: 75vw;
-    padding: 1px 0.5rem 0.5rem;
-    margin-bottom: 4px;
-    overflow-x: auto;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 0 0 4px;
     width: 100%;
+    overflow-x: auto;
+}
+
+/* Override Material button styles for dark hint buttons */
+.hints-row button[mat-raised-button] {
+    border: 1px solid var(--kypo-border2, #3a4a63) !important;
+    border-radius: 3px !important;
+    padding: 2px 12px !important;
+    font-size: 9px !important;
+    font-weight: 700 !important;
+    font-family: 'Space Mono', monospace !important;
+    letter-spacing: 0.5px !important;
+    background: var(--kypo-bg3, #1e2535) !important;
+    color: var(--kypo-muted2, #6a7a9a) !important;
+    height: 26px !important;
+    min-width: 0 !important;
+    transition: all 0.12s !important;
+    line-height: 1 !important;
+}
+
+.hints-row button[mat-raised-button]:not([disabled]):hover {
+    border-color: var(--primary-40, #ff6b35) !important;
+    color: var(--primary-40, #ff6b35) !important;
+    background: var(--kypo-orange-glow, rgba(255, 107, 53, 0.12)) !important;
+}
+
+.hints-row button[mat-raised-button][disabled] {
+    background: var(--kypo-orange-glow, rgba(255, 107, 53, 0.1)) !important;
+    border-color: var(--kypo-orange-dim, #7a2e10) !important;
+    color: var(--primary-40, #ff6b35) !important;
+    opacity: 0.85 !important;
 }
 
 .hints-row::-webkit-scrollbar {
-    height: 6px;
+    height: 4px;
 }
 
 .hints-row::-webkit-scrollbar-track {
-    background: var(--neutral-90);
+    background: var(--kypo-bg, #0f1117);
 }
 
 .hints-row::-webkit-scrollbar-thumb {
-    background: var(--neutral-70);
-    border-radius: 3px;
+    background: var(--kypo-border2, #3a4a63);
+    border-radius: 2px;
 }
 
 .hints-row * {
     flex-shrink: 0;
 }
 
-@media (max-width: 748px ) {
+@media (max-width: 748px) {
     .hints-row {
         max-width: 90dvw;
         min-width: 0;

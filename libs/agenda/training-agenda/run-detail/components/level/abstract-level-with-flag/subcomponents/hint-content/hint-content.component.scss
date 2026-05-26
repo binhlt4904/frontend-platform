@@ -1,9 +1,33 @@
 .hint-wrapper {
-    padding: 1rem;
-    border-radius: 6px;
+    background: var(--kypo-bg2, #161b26);
+    border: 1px solid var(--kypo-border, #2a3347);
+    border-radius: 0 3px 3px 0;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+
+    ::ng-deep p {
+        color: var(--kypo-text2, #8899bb);
+        font-size: 11px;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    ::ng-deep code {
+        background: var(--kypo-bg3, #1e2535);
+        border: 1px solid var(--kypo-border2, #3a4a63);
+        border-radius: 2px;
+        padding: 1px 6px;
+        font-size: 0.88em;
+        font-family: 'Space Mono', monospace;
+        color: var(--kypo-text, #cdd6f4);
+    }
 }
 
 .hint-title {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--kypo-muted, #4a5878);
+    margin-bottom: 5px;
 }

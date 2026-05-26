@@ -7,7 +7,9 @@ import {
     signal,
 } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 import { FloatingAnswerFormComponent } from '../answer-floating-form/floating-answer-form.component';
 import { SentinelMarkdownViewComponent } from '@sentinel/components/markdown-view';
 import { HintContentComponent } from '../hint-content/hint-content.component';
@@ -22,6 +24,9 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
     imports: [
         AsyncPipe,
         MatButton,
+        MatIconButton,
+        MatIcon,
+        MatTooltip,
         FloatingAnswerFormComponent,
         SentinelMarkdownViewComponent,
         HintContentComponent,
@@ -36,6 +41,7 @@ export class AbstractFlagLevelComponent {
     protected readonly answerSubmitted = output<string>();
 
     protected readonly activeHints = signal<Hint[]>([]);
+    protected readonly isFormCollapsed = signal<boolean>(false);
 
     protected readonly runService = inject(AbstractTrainingRunService);
     protected readonly destroyRef = inject(DestroyRef);

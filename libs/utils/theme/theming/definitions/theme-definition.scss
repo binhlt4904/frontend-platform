@@ -129,7 +129,7 @@ $_rest: (
 $_primary: map.merge(map.get($_palettes, primary), $_rest);
 $_tertiary: map.merge(map.get($_palettes, tertiary), $_rest);
 
-$theme: mat.define-theme((color: (theme-type: light,
+$theme: mat.define-theme((color: (theme-type: dark,
                 primary: $_primary,
                 tertiary: $_tertiary,
                 use-system-variables: true,

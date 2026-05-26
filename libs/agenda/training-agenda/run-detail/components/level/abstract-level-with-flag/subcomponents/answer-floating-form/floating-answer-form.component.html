@@ -1,9 +1,14 @@
-<div class="anchor-div">
-    <mat-card
-        class="answer-form highlighted-resizer"
-    >
-        <ng-content />
-        <div class="answer-row">
+<div class="flag-dock">
+    <div class="fd-bar">
+        <mat-icon class="fd-icon">flag</mat-icon>
+        <span class="fd-title">SUBMIT FLAG</span>
+    </div>
+    <div class="fd-body">
+        <div class="hints-area">
+            <ng-content />
+        </div>
+        <div class="ans-row">
+            <span class="flag-prompt">FLAG&gt;</span>
             <mat-form-field
                 (keydown.enter)="$event.preventDefault()"
                 appearance="outline"
@@ -15,7 +20,7 @@
                     [ngModelOptions]="{ standalone: true }"
                     autocomplete="off"
                     matInput
-                    placeholder="Answer"
+                    placeholder="FLAG{...}"
                 />
                 <button
                     (click)="answer.set('')"
@@ -30,12 +35,11 @@
             <button
                 (click)="submitAnswer()"
                 [disabled]="isLoading()"
-                class="submit-button"
-                color="primary"
+                class="sub-btn"
                 mat-flat-button
             >
                 {{ buttonLabel() }}
             </button>
         </div>
-    </mat-card>
+    </div>
 </div>

@@ -1,78 +1,110 @@
-.anchor-div {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.center-anchor-div {
-    position: relative;
-}
-
-.answer-form {
-    padding: 1rem;
+/* Flag dock — slides up from bottom, fixed position */
+.flag-dock {
+    position: fixed;
+    left: calc(140px + 1px);
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: var(--kypo-bg2, #161b26);
+    border-top: 2px solid var(--primary-40, #ff6b35);
     display: flex;
     flex-direction: column;
+    animation: 0.2s ease-out 1 slideUp;
+}
+
+@keyframes slideUp {
+    0%   { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Dock header bar */
+.fd-bar {
+    background: var(--kypo-bg3, #1e2535);
+    border-bottom: 1px solid var(--kypo-border, #2a3347);
+    height: 26px;
+    display: flex;
     align-items: center;
-    max-width: 75%;
-    min-width: max(25rem, 25%);
-    position: fixed;
-    left: calc(50% + 140px);
-    bottom: 1rem;
-    z-index: 1000;
-    overflow-x: hidden;
-    resize: horizontal;
-    transform: translateX(-50%);
-
-    /* soften the appearance when unloading and loading level */
-    opacity: 1;
-    animation: 0.1s ease-in 1 fadeIn;
+    padding: 0 12px;
+    gap: 7px;
 }
 
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+.fd-icon {
+    font-size: 13px;
+    width: 13px;
+    height: 13px;
+    color: var(--primary-40, #ff6b35);
 }
 
+.fd-title {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--kypo-muted2, #6a7a9a);
+    font-family: 'Space Mono', monospace;
+}
 
-.answer-row {
+/* Dock body */
+.fd-body {
+    padding: 8px 14px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.hints-area {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
-    gap: 1rem;
-    max-width: 75vw;
+}
+
+/* Answer row */
+.ans-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     width: 100%;
+}
+
+.flag-prompt {
+    font-size: 11px;
+    font-family: 'Space Mono', monospace;
+    color: var(--kypo-muted, #4a5878);
+    white-space: nowrap;
+    letter-spacing: 1px;
+    flex-shrink: 0;
 }
 
 .input-form-field {
+    flex: 1;
     min-width: 8rem;
-    width: 100%;
+
+    /* Override Material input colors for dark theme */
+    --mdc-outlined-text-field-outline-color: var(--kypo-border2, #3a4a63);
+    --mdc-outlined-text-field-hover-outline-color: var(--primary-40, #ff6b35);
+    --mdc-outlined-text-field-focus-outline-color: var(--primary-40, #ff6b35);
+    --mdc-outlined-text-field-input-text-color: var(--kypo-text, #cdd6f4);
+    --mdc-outlined-text-field-container-shape: 3px;
+    --mdc-outlined-text-field-label-text-color: var(--kypo-muted, #4a5878);
+    --mat-form-field-subscript-text-size: 0;
 }
 
-.submit-button {
+.sub-btn {
     min-width: 6rem;
+    flex-shrink: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: var(--primary-40, #ff6b35) !important;
+    color: #fff !important;
+    border-radius: 3px;
 }
 
-/* Breakpoint based on sentinel layout (when navbar is hidden) */
-@media (max-width: 748px ) {
-
-    .answer-form {
-        bottom: 0;
-        max-width: 100%;
-        width: 100%;
-        resize: none;
-        border-radius: 0;
-        left: 50%
-    }
-
-    .answer-row {
-        max-width: 100%;
-        width: 100%;
+/* Responsive: hide sidebar offset on mobile */
+@media (max-width: 748px) {
+    .flag-dock {
+        left: 0;
     }
 }
-

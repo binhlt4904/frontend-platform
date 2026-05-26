@@ -8,15 +8,15 @@
 }
 
 ::-webkit-scrollbar-track {
-    background-color: var(--primary-80);
+    background-color: var(--kypo-bg, #0f1117);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--primary-10);
+    background-color: var(--kypo-border2, #3a4a63);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--primary-25);
+    background-color: var(--kypo-muted, #4a5878);
 }
 
 /*

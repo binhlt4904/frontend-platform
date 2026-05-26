@@ -1,28 +1,31 @@
 .next-button {
-    width: 8rem;
     position: fixed;
-    bottom: 2rem;
+    bottom: 14px;
+    left: calc(140px + 50% - 4rem);
+    width: 8rem;
     z-index: 1000;
-    /* soften the appearance when unloading and loading level */
     opacity: 1;
     animation: 0.1s ease-in 1 fadeIn;
-    padding: 1rem;
-    left: calc(50% + 140px - 4rem);
+    padding: 0 1rem !important;
+    height: 38px;
+    font-family: 'Space Mono', monospace !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    border-radius: 4px !important;
+    background: var(--primary-40, #ff6b35) !important;
+    color: #fff !important;
+    border: none !important;
 }
-
 
 @media (max-width: 748px) {
     .next-button {
         width: 50%;
-        left: calc(25%);
+        left: 25%;
     }
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
 }

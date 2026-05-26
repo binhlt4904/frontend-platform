@@ -7,12 +7,12 @@
 $fctf-orange: #ff6b35;
 $fctf-orange-dark: #e85d2a;
 $fctf-orange-light: #ff884d;
-$fctf-bg-sidebar: #F9F3F1;
-$fctf-active-bg: rgba(247, 207, 190, 0.6);
+$fctf-bg-sidebar: #161b26;
+$fctf-active-bg: rgba(255, 107, 53, 0.15);
 $fctf-active-border: #ff6b35;
-$fctf-text-dark: #2c3e50;
-$fctf-text-medium: #495057;
-$fctf-text-light: #6c757d;
+$fctf-text-dark: #cdd6f4;
+$fctf-text-medium: #8899bb;
+$fctf-text-light: #6a7a9a;
 $fctf-border-light: rgba(255, 107, 53, 0.2);
 $fctf-white: #ffffff;
 
@@ -56,12 +56,12 @@ $fctf-white: #ffffff;
             --mat-icon-button-icon-color: #{$fctf-white};
         }
 
-        // ── Sidebar: FCTF pinkish-white background ──
+        // ── Sidebar: KYPO dark background ──
         .nav-drawer.mat-drawer {
             background-color: #{$fctf-bg-sidebar};
             background-image: none;
-            border-right: 1px solid #{$fctf-border-light};
-            box-shadow: 2px 0 8px rgba(255, 107, 53, 0.06);
+            border-right: 1px solid #2a3347;
+            box-shadow: 2px 0 12px rgba(0, 0, 0, 0.4);
         }
 
         // Active nav item — full orange background + white text
